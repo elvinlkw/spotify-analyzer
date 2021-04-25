@@ -31,4 +31,16 @@ button:active {
 .container {
   width: 80%;
   margin: 0 auto;
+  /* color: #c4c4c4; */
+}
+
+.main {
+  margin-top: 70px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    padding: 0 16px;
+  }
 }

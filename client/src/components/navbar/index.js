@@ -52,7 +52,10 @@ const Navbar = () => {
           ))}
           <span />
           <li className="nav-account">
-            <div>{getFirstName(display_name)}</div>
+            <div>
+              {getFirstName(display_name)}
+              <i className="fas fa-caret-down"></i>
+            </div>
             <img src={images[0].url} alt="profilePic" />
           </li>
         </StyledNavItems>

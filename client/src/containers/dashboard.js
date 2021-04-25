@@ -28,7 +28,7 @@ const Dashboard = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div>
+    <div className="main">
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
