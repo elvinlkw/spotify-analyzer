@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const authCode = getAuthCode(window.location);
     if (authCode) {
-      window.history.pushState({}, null, "dashboard");
+      window.history.pushState({}, null, "dashboard"); // clears the query code from url
       dispatch(getAccessToken(authCode));
     }
 

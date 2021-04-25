@@ -27,3 +27,8 @@ button {
 button:active {
   transform: scale(0.97, 0.97);
 }
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}

@@ -35,4 +35,12 @@ export const StyledButton = styled.a`
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.spotifyGreen};
+  }
+
+  &:active {
+    transform: scale(0.97, 0.97);
+  }
 `;
