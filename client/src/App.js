@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { loadUser } from "./actions/auth";
+import { loadUser, authError } from "./actions/auth";
 // Styled Components
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
@@ -25,6 +25,8 @@ const App = () => {
     const now = moment().unix();
     if (token?.access_token && now < token.expires_at) {
       dispatch(loadUser(token.access_token));
+    } else {
+      dispatch(authError());
     }
   }, [dispatch]);
 

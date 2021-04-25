@@ -9,8 +9,8 @@ const Index = () => {
   const { isLoggedIn, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!loading && isLoggedIn && token) {
-      push("/dashboard");
+    if (!loading) {
+      isLoggedIn ? push("/dashboard") : push("/login");
     }
   }, [loading, isLoggedIn, token, push]);
 
