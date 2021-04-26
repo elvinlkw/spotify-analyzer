@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { StyledWrapper, StyledControls } from "./styles";
+import { useSelector, useDispatch } from "react-redux";
 import { loadSpotifyPlayer } from "./utils";
+import { initPlayer, playerError } from "../../actions/player";
+import Artwork from "./artwork";
+import Controls from "./controls";
 
 const Player = () => {
+  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   let player;
 
@@ -15,6 +20,19 @@ const Player = () => {
 
     await loadSpotifyPlayer();
   };
+
+  // const fetchData = async () => {
+  //   const { data } = await API.get(
+  //     "/api/artists/45eNHdiiabvmbp4erw26rg/top-tracks",
+  //     {
+  //       params: {
+  //         market: "CA",
+  //       },
+  //     }
+  //   );
+  //   setData(data);
+  //   setLoading(false);
+  // };
 
   useEffect(() => {
     init();
@@ -32,9 +50,11 @@ const Player = () => {
     // Error handling
     player.addListener("initialization_error", ({ message }) => {
       console.error(message);
+      dispatch(playerError());
     });
     player.addListener("authentication_error", ({ message }) => {
       console.error(message);
+      dispatch(playerError());
     });
     player.addListener("account_error", ({ message }) => {
       console.error(message);
@@ -51,6 +71,7 @@ const Player = () => {
     // Ready
     player.addListener("ready", ({ device_id }) => {
       console.log("Ready with Device ID", device_id);
+      dispatch(initPlayer(device_id));
     });
 
     // Not Ready
@@ -63,9 +84,14 @@ const Player = () => {
   };
 
   return (
-    <div>
-      <h3>Player</h3>
-    </div>
+    <StyledWrapper>
+      <span>trackbar</span>
+      <StyledControls>
+        <Artwork />
+        <Controls />
+        <div>Volume</div>
+      </StyledControls>
+    </StyledWrapper>
   );
 };
 

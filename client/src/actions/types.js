@@ -7,3 +7,7 @@ export const LOG_OUT = "LOG_OUT";
 // PLAYER
 export const PLAYER_INIT = "PLAYER_INIT";
 export const PLAYER_ERROR = "PLAYER_ERROR";
+export const SET_CURRENT = "SET_CURRENT";
+export const SET_TRACKLIST = "SET_TRACKLIST";
+export const SET_PLAY_STATE = "SET_PLAY_STATE";
+export const CLEAR_TRACKLIST = "CLEAR_TRACKLIST";
