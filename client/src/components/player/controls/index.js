@@ -2,7 +2,7 @@ import React from "react";
 import { StyledControlsWrapper } from "./styles";
 import ControlsService from "services/controlsService";
 
-const Controls = ({ isPlaying }) => {
+const Controls = ({ playerState: { isPlaying, isShuffle, isRepeat } }) => {
   const handlePlayButton = () => {
     switch (isPlaying) {
       case true:
@@ -18,9 +18,18 @@ const Controls = ({ isPlaying }) => {
   const handlePauseTrack = async () => await ControlsService.pause();
   const handleNextTrack = async () => await ControlsService.next();
   const handlePrevTrack = async () => await ControlsService.prev();
+  const handleShuffleTrack = async () =>
+    await ControlsService.shuffle(!isShuffle);
 
   return (
     <StyledControlsWrapper>
+      <div onClick={handleShuffleTrack}>
+        <i
+          className={`fas fa-random controls-${
+            isShuffle ? "active" : "inactive"
+          }`}
+        />
+      </div>
       <div onClick={handlePrevTrack}>
         <i className="fas fa-step-backward controls-secondary" />
       </div>

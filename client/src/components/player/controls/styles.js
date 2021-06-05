@@ -7,6 +7,7 @@ export const StyledControlsWrapper = styled.div`
 
   i {
     cursor: pointer;
+    margin: 0 15px;
   }
 
   i:active {
@@ -24,13 +25,17 @@ export const StyledControlsWrapper = styled.div`
     color: #000;
   }
 
-  /* i.controls-secondary:active {
-    transform: scale(0.92, 0.92);
-  } */
+  i.controls-inactive {
+    color: #aaa;
+  }
+
+  i.controls-active {
+    color: #000;
+  }
 
   #web-player-icon-play {
     font-size: 40px;
-    margin: 0 20px;
+    /* margin: 0 20px; */
     color: #444;
   }
 `;

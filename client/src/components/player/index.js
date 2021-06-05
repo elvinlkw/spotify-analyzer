@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyledWrapper, StyledControls } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { loadSpotifyPlayer } from "./utils";
+import { hasChangesFound, loadSpotifyPlayer } from "./utils";
 import { initPlayer, playerError } from "../../actions/player";
 import { useQuery } from "react-query";
 import API from "../../api/axiosInstance";
@@ -13,7 +13,7 @@ const Player = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playerState, setPlayerState] = useState({});
 
   let player;
 
@@ -42,8 +42,12 @@ const Player = () => {
   }, []);
 
   useEffect(() => {
-    if (data && data.is_playing !== isPlaying) {
-      setIsPlaying(data.is_playing);
+    if (data && hasChangesFound(data, playerState)) {
+      setPlayerState({
+        isPlaying: data.is_playing,
+        isShuffle: data.shuffle_state,
+        isRepeat: data.repeat_state,
+      });
     }
   }, [data]);
 
@@ -97,7 +101,7 @@ const Player = () => {
       <span>trackbar</span>
       <StyledControls>
         <Artwork data={data} />
-        <Controls isPlaying={isPlaying} />
+        <Controls playerState={playerState} />
         <div>Volume</div>
       </StyledControls>
     </StyledWrapper>

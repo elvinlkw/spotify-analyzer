@@ -32,6 +32,14 @@ class ControlsService {
       console.log(err);
     }
   }
+
+  async shuffle(newState) {
+    try {
+      await API.put("/api/player/shuffle", { state: newState });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default new ControlsService();
