@@ -13,8 +13,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledControls = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 5px 10px;
 `;

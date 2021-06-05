@@ -1,66 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyledControlsWrapper } from "./styles";
-import API from "../../../api/axiosInstance";
+import ControlsService from "services/controlsService";
 
-const Controls = ({ data, deviceId }) => {
-  // const [tracks, setTracks] = useState(null);
-  const [play, setPlay] = useState(false);
-  // const [trackLoaded, setTrackLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   setTracks(data.tracks.map((t) => t.uri));
-  //   // eslint-disable-next-line
-  // }, []);
-
-  // const onPlay = async () => {
-  //   const body = {
-  //     device_id: deviceId,
-  //   };
-
-  //   if (!trackLoaded) {
-  //     body.uris = tracks;
-  //     setTrackLoaded(true);
-  //   }
-  //   try {
-  //     setPlay(true);
-  //     await API.put("/api/player/play", body);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const onPause = async () => {
-  //   console.log("pause");
-  //   try {
-  //     setPlay(false);
-  //     await API.put("/api/player/pause", {
-  //       device_id: deviceId,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handlePlay = () => {
-    // switch (play) {
-    //   case true:
-    //     return onPause();
-    //   case false:
-    //     return onPlay();
-    //   default:
-    //     return;
-    // }
+const Controls = ({ playerState: { isPlaying, isShuffle, isRepeat } }) => {
+  const handlePlayButton = () => {
+    switch (isPlaying) {
+      case true:
+        return handlePauseTrack();
+      case false:
+        return handlePlayTrack();
+      default:
+        return;
+    }
   };
+
+  const handlePlayTrack = async () => await ControlsService.play();
+  const handlePauseTrack = async () => await ControlsService.pause();
+  const handleNextTrack = async () => await ControlsService.next();
+  const handlePrevTrack = async () => await ControlsService.prev();
+  const handleShuffleTrack = async () =>
+    await ControlsService.shuffle(!isShuffle);
 
   return (
     <StyledControlsWrapper>
-      <i className="fas fa-step-backward controls-secondary" />
-      <i
-        id="web-player-icon-play"
-        onClick={handlePlay}
-        className={`fas fa-${play ? "pause" : "play"}-circle`}
-      />
-      <i className="fas fa-step-forward controls-secondary" />
+      <div onClick={handleShuffleTrack}>
+        <i
+          className={`fas fa-random controls-${
+            isShuffle ? "active" : "inactive"
+          }`}
+        />
+      </div>
+      <div onClick={handlePrevTrack}>
+        <i className="fas fa-step-backward controls-secondary" />
+      </div>
+      <div>
+        <i
+          id="web-player-icon-play"
+          onClick={handlePlayButton}
+          className={`fas fa-${isPlaying ? "pause" : "play"}-circle`}
+        />
+      </div>
+      <div onClick={handleNextTrack}>
+        <i className="fas fa-step-forward controls-secondary" />
+      </div>
     </StyledControlsWrapper>
   );
 };

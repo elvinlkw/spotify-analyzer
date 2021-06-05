@@ -20,3 +20,15 @@ export const loadSpotifyPlayer = () => {
     }
   });
 };
+
+export const combineArtists = (artists) => {
+  return artists.map((artist) => artist.name).join(", ");
+};
+
+export const hasChangesFound = (data, playerState) => {
+  const hasChanges =
+    data.is_playing !== playerState?.isPlaying ||
+    data.repeat_state !== playerState?.isRepeat ||
+    data.shuffle_state !== playerState?.isShuffle;
+  return hasChanges;
+};
