@@ -29,6 +29,12 @@ export const hasChangesFound = (data, playerState) => {
   const hasChanges =
     data.is_playing !== playerState?.isPlaying ||
     data.repeat_state !== playerState?.isRepeat ||
-    data.shuffle_state !== playerState?.isShuffle;
+    data.shuffle_state !== playerState?.isShuffle ||
+    getProgressPercent(data.progress_ms, data.item.duration_ms) !==
+      playerState?.progressPercent;
   return hasChanges;
+};
+
+export const getProgressPercent = (progress, duration) => {
+  return (progress / duration) * 100;
 };

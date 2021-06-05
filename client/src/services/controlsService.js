@@ -40,6 +40,14 @@ class ControlsService {
       console.log(err);
     }
   }
+
+  async seek(position_ms) {
+    try {
+      await API.put("/api/player/seek", { position_ms });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default new ControlsService();

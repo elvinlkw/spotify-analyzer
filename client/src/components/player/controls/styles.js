@@ -16,7 +16,7 @@ export const StyledControlsWrapper = styled.div`
 
   i.controls-secondary {
     font-size: 20px;
-    color: #aaa;
+    color: #777;
     transition: color 0.2s ease-in;
   }
 

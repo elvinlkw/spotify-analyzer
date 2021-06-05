@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { StyledWrapper, StyledControls } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { hasChangesFound, loadSpotifyPlayer } from "./utils";
+import {
+  getProgressPercent,
+  hasChangesFound,
+  loadSpotifyPlayer,
+} from "./utils";
 import { initPlayer, playerError } from "../../actions/player";
 import { useQuery } from "react-query";
-import API from "../../api/axiosInstance";
 import Spinner from "../spinner";
 import Artwork from "./artwork";
 import Controls from "./controls";
+import Trackbar from "./trackbar";
+import playerService from "services/playerService";
 
 const Player = () => {
   const dispatch = useDispatch();
@@ -19,10 +24,7 @@ const Player = () => {
 
   const { isLoading, data } = useQuery(
     "getPlayState",
-    async () => {
-      const { data } = await API.get("/api/player");
-      return data;
-    },
+    async () => await playerService.get(),
     { refetchInterval: 1000 }
   );
 
@@ -43,10 +45,18 @@ const Player = () => {
 
   useEffect(() => {
     if (data && hasChangesFound(data, playerState)) {
+      const {
+        is_playing,
+        shuffle_state,
+        repeat_state,
+        progress_ms,
+        item: { duration_ms },
+      } = data;
       setPlayerState({
-        isPlaying: data.is_playing,
-        isShuffle: data.shuffle_state,
-        isRepeat: data.repeat_state,
+        isPlaying: is_playing,
+        isShuffle: shuffle_state,
+        isRepeat: repeat_state,
+        progressPercent: getProgressPercent(progress_ms, duration_ms),
       });
     }
   }, [data]);
@@ -98,7 +108,11 @@ const Player = () => {
 
   return (
     <StyledWrapper>
-      <span>trackbar</span>
+      <Trackbar
+        progress={playerState?.progressPercent}
+        size="md"
+        totalDuration={data?.item?.duration_ms}
+      />
       <StyledControls>
         <Artwork data={data} />
         <Controls playerState={playerState} />

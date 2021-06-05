@@ -1,13 +1,20 @@
 import React, { Fragment } from "react";
 import { StyledWrapper } from "./styles";
 import { combineArtists } from "../utils";
+import { isEmptyObject } from "utils";
 
 const Artwork = ({ data }) => {
   return (
     <StyledWrapper>
-      {data && (
+      {isEmptyObject(data) ? (
+        <div className="image-container no-track"></div>
+      ) : (
         <Fragment>
-          <img src={data.item.album.images[2].url} alt="Artwork" />
+          <img
+            src={data?.item.album.images[2].url}
+            alt="Artwork"
+            className="image-container"
+          />
           <div className="track-info">
             <p>{data.item.name}</p>
             <p>{combineArtists(data.item.artists)}</p>
