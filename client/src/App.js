@@ -8,6 +8,7 @@ import {
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, authError } from "./actions/auth";
+import { QueryClient, QueryClientProvider } from "react-query";
 // Styled Components
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
@@ -26,6 +27,8 @@ if (token?.access_token) {
   setAuthToken(token.access_token);
 }
 
+const queryClient = new QueryClient();
+
 const App = () => {
   const dispatch = useDispatch();
   const { loading, isLoggedIn, user } = useSelector((state) => state.auth);
@@ -40,18 +43,20 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        {!loading && isLoggedIn && user && <Navbar />}
-        <Switch>
-          <Route exact path="/" component={Index} />
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
-          <Route path="*" render={() => <Redirect to="/dashboard" />} />
-        </Switch>
-        {!loading && isLoggedIn && <Player />}
-      </Router>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          {!loading && isLoggedIn && user && <Navbar />}
+          <Switch>
+            <Route exact path="/" component={Index} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <Route path="*" render={() => <Redirect to="/dashboard" />} />
+          </Switch>
+          {!loading && isLoggedIn && <Player />}
+        </Router>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

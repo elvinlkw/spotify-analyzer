@@ -20,3 +20,7 @@ export const loadSpotifyPlayer = () => {
     }
   });
 };
+
+export const combineArtists = (artists) => {
+  return artists.map((artist) => artist.name).join(", ");
+};
