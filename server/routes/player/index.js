@@ -3,7 +3,7 @@ const API = require("../../api");
 const router = express.Router();
 
 // @route   - GET /api/player
-// @desc    - Start/resume playback on the user's active device
+// @desc    - Get information about the user’s current playback state
 // @public  - Private
 router.get("/", async (req, res) => {
   const config = {
@@ -16,9 +16,11 @@ router.get("/", async (req, res) => {
   };
 
   try {
-    await API.get("/me/player", config);
+    const { data } = await API.get("/me/player", config);
+    return res.json(data);
   } catch (error) {
     console.log(error);
+    return res.status(500).send("Server Error");
   }
 });
 
@@ -89,6 +91,7 @@ router.put("/pause", async (req, res) => {
 // @desc    - Skips to next track in the user’s queue.
 // @public  - Private
 router.post("/next", async (req, res) => {
+  console.log("received");
   const config = {
     headers: {
       Authorization: req.headers.authorization,
