@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const moment = require("moment");
+const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
 const qs = require("qs");
 
@@ -31,8 +32,10 @@ router.post("/", async (req, res) => {
   try {
     const { data, status } = await axios(config);
 
-    if (status !== 200) {
-      return res.status(400).json({ msg: "Invalid Code Provided" });
+    if (status !== StatusCodes.OK) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Invalid Code Provided" });
     }
 
     const expires_at = moment().add(data.expires_in, "seconds").unix();
@@ -47,7 +50,7 @@ router.post("/", async (req, res) => {
     return res.json(resData);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       error: {
         error: error.response.data.error,
         msg: error.response.data.error_description,
@@ -73,7 +76,9 @@ router.get("/", async (req, res) => {
     const { data } = await axios(config);
     return res.json(data);
   } catch (err) {
-    return res.status(400).json({ msg: "You are not authorized to view this" });
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "You are not authorized to view this" });
   }
 });
 

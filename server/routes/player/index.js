@@ -1,4 +1,5 @@
 const express = require("express");
+const { StatusCodes } = require("http-status-codes");
 const API = require("../../api");
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
     return res.json(data);
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Server Error");
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 

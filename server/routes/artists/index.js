@@ -1,6 +1,6 @@
 const express = require("express");
 const API = require("../../api");
-const axios = require("axios");
+const { StatusCodes } = require("http-status-codes");
 const router = express.Router();
 
 // @route   - GET /api/artists/:id
@@ -34,16 +34,16 @@ router.get("/:id/top-tracks/", async (req, res) => {
   try {
     const { data, status } = await API(config);
 
-    if (status !== 200) {
+    if (status !== StatusCodes.OK) {
       return res
-        .status(400)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "You are not able to view this information" });
     }
 
     return res.json(data);
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 });
 
