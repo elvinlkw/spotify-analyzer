@@ -25,6 +25,29 @@ router.get("/", async (req, res) => {
   }
 });
 
+// @route   - PUT /api/player
+// @desc    - Transfer a User's Playback
+// @public  - Private
+router.put("/", async (req, res) => {
+  console.log(req.body.device_id);
+  const config = {
+    headers: {
+      Authorization: req.headers.authorization,
+    },
+  };
+  const body = {
+    device_ids: [req.body.device_id],
+    play: req.body.play,
+  };
+
+  try {
+    await API.put("/me/player", body, config);
+    res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // @route   - GET /api/player/devices
 // @desc    - Get information about a user’s available devices.
 // @public  - Private
