@@ -40,6 +40,22 @@ class ControlsService {
       console.log(err);
     }
   }
+
+  async seek(position_ms) {
+    try {
+      await API.put("/api/player/seek", { position_ms });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async volume(volume_percent) {
+    try {
+      await API.put("/api/player/volume", { volume_percent });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default new ControlsService();
