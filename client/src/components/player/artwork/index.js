@@ -7,7 +7,7 @@ const Artwork = ({ data }) => {
   return (
     <StyledWrapper>
       {isEmptyObject(data) ? (
-        <div className="image-container no-track"></div>
+        <div className="image-container"></div>
       ) : (
         <Fragment>
           <img

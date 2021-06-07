@@ -12,7 +12,9 @@ import Spinner from "../spinner";
 import Artwork from "./artwork";
 import Controls from "./controls";
 import Trackbar from "./trackbar";
+import Volume from "./volume";
 import playerService from "services/playerService";
+import { isEmptyObject } from "utils";
 
 const Player = () => {
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ const Player = () => {
         shuffle_state,
         repeat_state,
         progress_ms,
+        device: { volume_percent },
         item: { duration_ms },
       } = data;
       setPlayerState({
@@ -57,6 +60,7 @@ const Player = () => {
         isShuffle: shuffle_state,
         isRepeat: repeat_state,
         progressPercent: getProgressPercent(progress_ms, duration_ms),
+        volume: volume_percent,
       });
     }
   }, [data]);
@@ -92,6 +96,7 @@ const Player = () => {
 
     // Ready
     player.addListener("ready", ({ device_id }) => {
+      sessionStorage.setItem("device_id", device_id);
       dispatch(initPlayer(device_id));
     });
 
@@ -107,18 +112,20 @@ const Player = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <StyledWrapper>
-      <Trackbar
-        progress={playerState?.progressPercent}
-        size="md"
-        totalDuration={data?.item?.duration_ms}
-      />
-      <StyledControls>
-        <Artwork data={data} />
-        <Controls playerState={playerState} />
-        <div>Volume</div>
-      </StyledControls>
-    </StyledWrapper>
+    !isEmptyObject(data) && (
+      <StyledWrapper>
+        <Trackbar
+          progress={playerState?.progressPercent}
+          size="md"
+          totalDuration={data?.item?.duration_ms}
+        />
+        <StyledControls>
+          <Artwork data={data} />
+          <Controls playerState={playerState} />
+          <Volume level={playerState?.volume} />
+        </StyledControls>
+      </StyledWrapper>
+    )
   );
 };
 

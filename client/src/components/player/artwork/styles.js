@@ -12,8 +12,8 @@ export const StyledWrapper = styled.div`
   }
 
   .image-container.no-track {
-    border: 1px solid ${({ theme }) => theme.colors.gray};
-    background-color: ${({ theme }) => theme.colors.light};
+    border: 1px solid ${theme.colors.gray};
+    background-color: ${theme.colors.light};
   }
 
   .track-info {
@@ -24,12 +24,12 @@ export const StyledWrapper = styled.div`
 
     & > p {
       margin: 0;
-      font-size: ${({ theme }) => theme.text.fontSize.md};
+      font-size: ${theme.text.fontSize.md};
     }
 
     & > p:last-child {
-      font-size: ${({ theme }) => theme.text.fontSize.sm};
-      color: ${({ theme }) => theme.colors.gray};
+      font-size: ${theme.text.fontSize.sm};
+      color: ${theme.colors.gray};
     }
   }
 `;
