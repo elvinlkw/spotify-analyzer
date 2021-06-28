@@ -1,9 +1,12 @@
 import API from "../api/axiosInstance";
 
 class ControlsService {
-  async play() {
+  async play(uris, deviceId) {
     try {
-      await API.put("/api/player/play");
+      await API.put("/api/player/play", {
+        uris,
+        deviceId,
+      });
     } catch (err) {
       console.log(err);
     }

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser, authError } from "./actions/auth";
+import { loadUser, authError, checkValidToken } from "./actions/auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 // Styled Components
 import { ThemeProvider } from "styled-components";
@@ -37,9 +37,11 @@ const App = () => {
     const now = moment().unix();
     if (token?.access_token && now < token.expires_at) {
       dispatch(loadUser(token.access_token));
+      dispatch(checkValidToken(token.expires_at));
     } else {
       dispatch(authError());
     }
+    // eslint-disable-next-line
   }, [dispatch]);
 
   return (

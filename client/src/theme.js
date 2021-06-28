@@ -39,6 +39,10 @@ const theme = {
       xl: "36px",
     },
   },
+  boxShadow: {
+    sm: "0 0 4px rgba(0,0,0,0.5)",
+    md: "0 0 20px rgba(0,0,0,.5)",
+  },
 };
 
 export default theme;

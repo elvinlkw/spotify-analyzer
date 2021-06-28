@@ -63,6 +63,7 @@ const Player = () => {
         volume: volume_percent,
       });
     }
+    // eslint-disable-next-line
   }, [data]);
 
   const initializePlayer = () => {
@@ -98,6 +99,7 @@ const Player = () => {
     player.addListener("ready", ({ device_id }) => {
       sessionStorage.setItem("device_id", device_id);
       dispatch(initPlayer(device_id));
+      playerService.setDevice(device_id);
     });
 
     // Not Ready

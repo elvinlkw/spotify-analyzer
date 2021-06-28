@@ -7,6 +7,7 @@ export const StyledNavbar = styled.div`
   top: 0;
   width: 100%;
   opacity: 0.9;
+  z-index: 100;
 
   .container {
     display: flex;

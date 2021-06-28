@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Spinner from "../components/spinner";
+import TopTracks from "components/dashboard/top-tracks";
+import TopArtists from "components/dashboard/top-artists";
 import { logout, getAccessToken } from "../actions/auth";
 import { getAuthCode } from "../utils/userAuth";
 
@@ -29,6 +31,8 @@ const Dashboard = () => {
 
   return (
     <div className="main">
+      <TopTracks />
+      <TopArtists />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
