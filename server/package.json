@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "http-status-codes": "^2.1.4",
     "moment": "^2.29.1",
+    "npmlog": "^4.1.2",
     "qs": "^6.10.1"
   },
   "devDependencies": {
