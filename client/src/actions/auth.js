@@ -41,7 +41,7 @@ export const checkValidToken = (expires_at) => (dispatch) => {
     const now = moment().unix();
     if (now > expires_at) {
       alert("Token Expired");
-      dispatch(authError);
+      dispatch(authError());
     }
   }, interval);
 };
