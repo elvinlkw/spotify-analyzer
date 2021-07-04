@@ -1,12 +1,6 @@
-import React, { Fragment } from "react";
-import Login from "../components/login";
+import React from 'react';
+import Login from '../components/login';
 
-const login = () => {
-  return (
-    <Fragment>
-      <Login />
-    </Fragment>
-  );
-};
+const login = () => <Login />;
 
 export default login;
