@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyledWrapper, StyledControls } from './styles';
+import { StyledArrow, StyledWrapper, StyledControls } from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getProgressPercent,
@@ -28,6 +28,7 @@ const Player = () => {
   const { current } = useSelector(state => state.player);
 
   const [playerState, setPlayerState] = useState({});
+  const [show, setShow] = useState(true);
 
   let player;
 
@@ -127,22 +128,32 @@ const Player = () => {
     player.connect();
   };
 
+  const togglePlayer = () => setShow(prevShow => !prevShow);
+
   if (isLoading) return <Spinner />;
 
   return (
     !isEmptyObject(data) && (
-      <StyledWrapper>
-        <Trackbar
-          progress={playerState?.progressPercent}
-          size='md'
-          totalDuration={data?.item?.duration_ms}
-        />
-        <StyledControls>
-          <Artwork data={data} />
-          <Controls playerState={playerState} />
-          <Volume level={playerState?.volume} />
-        </StyledControls>
-      </StyledWrapper>
+      <>
+        <StyledArrow>
+          <i
+            onClick={togglePlayer}
+            className={`fas fa-chevron-${show ? 'down' : 'up'}`}
+          ></i>
+        </StyledArrow>
+        <StyledWrapper className={show ? 'show-player' : 'hide-player'}>
+          <Trackbar
+            progress={playerState?.progressPercent}
+            size='md'
+            totalDuration={data?.item?.duration_ms}
+          />
+          <StyledControls>
+            <Artwork data={data} />
+            <Controls playerState={playerState} />
+            <Volume level={playerState?.volume} />
+          </StyledControls>
+        </StyledWrapper>
+      </>
     )
   );
 };
