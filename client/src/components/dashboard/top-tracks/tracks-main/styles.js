@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TopTrackWrapper = styled.div`
   display: grid;
@@ -30,6 +30,38 @@ export const TopTrackWrapper = styled.div`
 
 export const StyledImageWrapper = styled.div`
   justify-content: flex-end;
+  position: relative;
+
+  & > button {
+    position: absolute;
+    display: none;
+    bottom: 5px;
+    right: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.spotifyGreen};
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    z-index: 5;
+  }
+
+  &:hover > button {
+    display: flex;
+  }
+
+  & > button > i {
+    font-size: 25px;
+  }
+
+  & > button:hover {
+    transform: scale(1.1);
+  }
+
+  & > button:active {
+    transform: scale(1.2);
+  }
 
   & > img {
     z-index: 1;

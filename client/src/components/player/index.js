@@ -20,6 +20,7 @@ import Controls from './controls';
 import Trackbar from './trackbar';
 import Volume from './volume';
 import playerService from 'services/playerService';
+import { setAlert } from 'actions/alert';
 import { isEmptyObject } from 'utils';
 
 const Player = () => {
@@ -77,6 +78,11 @@ const Player = () => {
       }
 
       if (hasTrackChanged(item, current)) {
+        if (!show) {
+          dispatch(
+            setAlert({ type: 'success', text: `'${item.name}' now playing!` })
+          );
+        }
         dispatch(setCurrent({ ...item, progress_ms }));
       }
     }
@@ -109,7 +115,7 @@ const Player = () => {
 
     // Playback status updates
     player.addListener('player_state_changed', state => {
-      console.log('state changed', state);
+      // console.log('state changed', state);
     });
 
     // Ready

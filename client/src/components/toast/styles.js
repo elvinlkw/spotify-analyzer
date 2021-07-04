@@ -46,7 +46,7 @@ export const StyledToast = styled.div`
       max-height: 100px;
       border-radius: 4px;
       box-shadow: 0 0 10px #999;
-      opacity: .9;
+      opacity: 1;
       background-position: 15px;
       background-repeat: no-repeat;
 

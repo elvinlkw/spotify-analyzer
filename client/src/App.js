@@ -50,7 +50,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           {!loading && isLoggedIn && user && <Navbar />}
-          <Toast width={360} showIcon={true} position='top-center' />
+          <Toast width={360} showIcon={true} position='top-right' />
           <Switch>
             <Route exact path='/' component={Index} />
             <Route path='/login' component={Login} />

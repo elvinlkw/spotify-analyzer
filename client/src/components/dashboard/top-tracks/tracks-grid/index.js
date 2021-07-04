@@ -1,22 +1,13 @@
 import React, { Fragment } from 'react';
 import { StyledHeader, StyledWrapper } from './styles';
-import controlsService from 'services/controlsService';
-import { isCurrentTrackPlaying, isCurrentTrackLoaded } from 'utils';
+import { isCurrentTrackPlaying, playSong } from 'utils';
 import { useSelector } from 'react-redux';
 
 const TracksGrid = ({ tracks }) => {
   const { deviceId, current, isPlaying } = useSelector(state => state.player);
 
   const handleClick = track => {
-    if (isCurrentTrackLoaded(track, current)) {
-      if (isPlaying) {
-        return controlsService.pause();
-      }
-      // resume track
-      return controlsService.play();
-    }
-
-    controlsService.play([track.uri], deviceId);
+    playSong(track, current, isPlaying, deviceId);
   };
 
   return (
