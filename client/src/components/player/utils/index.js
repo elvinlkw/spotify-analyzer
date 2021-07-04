@@ -1,23 +1,23 @@
 const volumeThresholdObj = {
-  10: "off",
-  50: "down",
-  100: "up",
+  10: 'off',
+  50: 'down',
+  100: 'up',
 };
 
 export const loadSpotifyPlayer = () => {
   return new Promise((resolve, reject) => {
-    const scriptTag = document.getElementById("spotify-player");
+    const scriptTag = document.getElementById('spotify-player');
 
     if (!scriptTag) {
-      const script = document.createElement("script");
+      const script = document.createElement('script');
 
-      script.id = "spotify-player";
-      script.type = "text/javascript";
+      script.id = 'spotify-player';
+      script.type = 'text/javascript';
       script.async = false;
       script.defer = true;
-      script.src = "https://sdk.scdn.co/spotify-player.js";
+      script.src = 'https://sdk.scdn.co/spotify-player.js';
       script.onload = () => resolve();
-      script.onerror = (error) =>
+      script.onerror = error =>
         reject(new Error(`loadScript: ${error.message}`));
 
       document.head.appendChild(script);
@@ -27,8 +27,8 @@ export const loadSpotifyPlayer = () => {
   });
 };
 
-export const combineArtists = (artists) => {
-  return artists.map((artist) => artist.name).join(", ");
+export const combineArtists = artists => {
+  return artists.map(artist => artist.name).join(', ');
 };
 
 export const hasChangesFound = (data, playerState) => {
@@ -42,11 +42,15 @@ export const hasChangesFound = (data, playerState) => {
   return hasChanges;
 };
 
+export const hasTrackChanged = (item, currentTrack) => {
+  return currentTrack?.id !== item.id;
+};
+
 export const getProgressPercent = (progress, duration) => {
   return (progress / duration) * 100;
 };
 
-export const getVolumeIcon = (level) => {
+export const getVolumeIcon = level => {
   for (let threshold in volumeThresholdObj) {
     if (level <= threshold) {
       return volumeThresholdObj[threshold];

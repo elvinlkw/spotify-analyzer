@@ -32,7 +32,7 @@ const Dashboard = () => {
   return (
     <div className='main'>
       <TopTracks />
-      <TopArtists />
+      {/* <TopArtists /> */}
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

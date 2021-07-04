@@ -1,16 +1,13 @@
-import React from "react";
-import { StyledControlsWrapper } from "./styles";
-import ControlsService from "services/controlsService";
+import React from 'react';
+import { StyledControlsWrapper } from './styles';
+import ControlsService from 'services/controlsService';
 
 const Controls = ({ playerState: { isPlaying, isShuffle, isRepeat } }) => {
   const handlePlayButton = () => {
-    switch (isPlaying) {
-      case true:
-        return handlePauseTrack();
-      case false:
-        return handlePlayTrack();
-      default:
-        return;
+    if (isPlaying) {
+      handlePauseTrack();
+    } else {
+      handlePlayTrack();
     }
   };
 
@@ -26,22 +23,22 @@ const Controls = ({ playerState: { isPlaying, isShuffle, isRepeat } }) => {
       <div onClick={handleShuffleTrack}>
         <i
           className={`fas fa-random controls-${
-            isShuffle ? "active" : "inactive"
+            isShuffle ? 'active' : 'inactive'
           }`}
         />
       </div>
       <div onClick={handlePrevTrack}>
-        <i className="fas fa-step-backward controls-secondary" />
+        <i className='fas fa-step-backward controls-secondary' />
       </div>
       <div>
         <i
-          id="web-player-icon-play"
+          id='web-player-icon-play'
           onClick={handlePlayButton}
-          className={`fas fa-${isPlaying ? "pause" : "play"}-circle`}
+          className={`fas fa-${isPlaying ? 'pause' : 'play'}-circle`}
         />
       </div>
       <div onClick={handleNextTrack}>
-        <i className="fas fa-step-forward controls-secondary" />
+        <i className='fas fa-step-forward controls-secondary' />
       </div>
     </StyledControlsWrapper>
   );
